@@ -32,4 +32,6 @@ function numUniqueEmails(emails) {
     return uniqueEmail.size;
 };
 
-console.log(numUniqueEmails(["test.email+alex@leetcode.com","test.e.mail+bob.cathy@leetcode.com","testemail+david@lee.tcode.com"]));
+console.log(numUniqueEmails(
+    ["test.email+alex@leetcode.com","test.e.mail+bob.cathy@leetcode.com","testemail+david@lee.tcode.com"]
+));
