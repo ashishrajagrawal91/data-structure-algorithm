@@ -22,7 +22,7 @@
  *Output: 3
  */
 
-function numUniqueEmails(emails) {
+let numUniqueEmails = (emails) => {
 	let uniqueEmail = new Set();
 
 	for (let i = 0; i < emails.length; i++) {
@@ -32,7 +32,7 @@ function numUniqueEmails(emails) {
 		uniqueEmail.add(`${plusSplit[0].replace(/\./g, ``)}@${domainSplit[1]}`);
 	}
 	return uniqueEmail.size;
-}
+};
 
 console.log(numUniqueEmails(
 	[`test.email+alex@leetcode.com`, `test.e.mail+bob.cathy@leetcode.com`, `testemail+david@lee.tcode.com`],

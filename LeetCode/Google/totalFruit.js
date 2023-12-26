@@ -23,13 +23,17 @@
  *If we had started at the first tree, we would only pick from trees [1,2].
  */
 
-let totalFruit = function(fruits) {
+let totalFruit = (fruits) => {
 	let count = 0;
 	let basket = {};
 	let left = 0;
 
 	for (let right = 0; right < fruits.length; right++) {
-		if (basket[fruits[right]]) { basket[fruits[right]] = basket[fruits[right]] + 1; } else { basket[fruits[right]] = 1; }
+		if (basket[fruits[right]]) {
+			basket[fruits[right]] = basket[fruits[right]] + 1;
+		} else {
+			basket[fruits[right]] = 1;
+		}
 		while (Object.keys(basket).length > 2) {
 			basket[fruits[left]] = basket[fruits[left]] - 1;
 			if (basket[fruits[left]] === 0) { delete basket[fruits[left]]; }
