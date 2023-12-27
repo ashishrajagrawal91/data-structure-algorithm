@@ -89,3 +89,6 @@ class DynamicArray {
 	}
 }
 
+let ddaInstance = new DynamicArray();
+
+console.log(ddaInstance.getSize());

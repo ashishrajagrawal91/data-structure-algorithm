@@ -94,12 +94,14 @@ class LinkedList {
 
 let llInstance = new LinkedList(10);
 
-// // Insert element in start
-// llInstance.print();
-// llInstance.insertAtHead(20);
-// llInstance.print();
-// llInstance.insertAtHead(30);
-// llInstance.print();
+/*
+ * Insert element in start
+ * llInstance.print();
+ * llInstance.insertAtHead(20);
+ * llInstance.print();
+ * llInstance.insertAtHead(30);
+ * llInstance.print();
+ */
 
 // Insert element at end
 llInstance.print();

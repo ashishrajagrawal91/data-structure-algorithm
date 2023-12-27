@@ -42,7 +42,8 @@ class LinkedList {
 			i++;
 			curr = curr.next;
 		}
-		return -1; // Index out of bounds or list is empty
+		// Index out of bounds or list is empty
+		return -1;
 	}
 
 	/**
@@ -109,3 +110,7 @@ class LinkedList {
 		return res;
 	}
 }
+
+let llInstance = new LinkedList();
+
+console.log(llInstance.getValues());
