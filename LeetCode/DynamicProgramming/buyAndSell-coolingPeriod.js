@@ -26,7 +26,27 @@
  * 0 <= prices[i] <= 1000
  */
 
-let solve = (index, buy, prices, dp) => {
+let solveRecursion = (prices, index, buy) => {
+	if (index >= prices.length) {
+		return 0;
+	}
+	let profit = 0;
+
+	if (buy) {
+		let buyKaro = -prices[index] + solveRecursion(prices, index + 1, 0);
+		let skipKaro = 0 + solveRecursion(prices, index + 1, 1);
+
+		profit = Math.max(buyKaro, skipKaro);
+	} else {
+		let sellKaro = prices[index] + solveRecursion(prices, index + 2, 1);
+		let skipKaro = 0 + solveRecursion(prices, index + 1, 0);
+
+		profit = Math.max(sellKaro, skipKaro);
+	}
+	return profit;
+};
+
+let solveTopToBottom = (index, buy, prices, dp) => {
 	if (index >= prices.length) {
 		return 0;
 	}
@@ -38,18 +58,45 @@ let solve = (index, buy, prices, dp) => {
 	let profit = 0;
 
 	if (buy) {
-		let buyKaro = -prices[index] + solve(index + 1, 0, prices, dp);
-		let skipKaro = solve(index + 1, 1, prices, dp);
+		let buyKaro = -prices[index] + solveTopToBottom(index + 1, 0, prices, dp);
+		let skipKaro = solveTopToBottom(index + 1, 1, prices, dp);
 
 		profit = Math.max(buyKaro, skipKaro);
 	} else {
-		let sellKaro = prices[index] + solve(index + 2, 1, prices, dp);
-		let skipKaro = solve(index + 1, 0, prices, dp);
+		let sellKaro = prices[index] + solveTopToBottom(index + 2, 1, prices, dp);
+		let skipKaro = solveTopToBottom(index + 1, 0, prices, dp);
 
 		profit = Math.max(sellKaro, skipKaro);
 	}
 	dp[index][buy] = profit;
 	return dp[index][buy];
+};
+
+let solveBottomToTop = (prices) => {
+	let n = prices.length;
+	let dp = Array.
+		from({ "length": n + 2 }).
+		map(() => Array.from({ "length": 2 }).fill(0));
+
+	for (let index = n - 1; index >= 0; index--) {
+		for (let buy = 0; buy <= 1; buy++) {
+			let profit = 0;
+
+			if (buy) {
+				let buyKaro = -prices[index] + dp[index + 1][0];
+				let skipKaro = dp[index + 1][1];
+
+				profit = Math.max(buyKaro, skipKaro);
+			} else {
+				let sellKaro = prices[index] + dp[index + 2][1];
+				let skipKaro = dp[index + 1][0];
+
+				profit = Math.max(sellKaro, skipKaro);
+			}
+			dp[index][buy] = profit;
+		}
+	}
+	return dp[0][1];
 };
 
 // TODO :- Space Optimization / Transaction method / Bottom Top approach
@@ -62,7 +109,12 @@ let maxProfit = (prices) => {
 		from({ "length": prices.length }).
 		map(() => Array.from({ "length": 2 }).fill(-1));
 
-	return solve(0, 1, prices, dp);
+	console.log(`solveRecursion `, solveRecursion(prices, 0, 1));
+
+	console.log(`solveTopToBottom `, solveTopToBottom(0, 1, prices, dp));
+
+	console.log(`solveBottomToTop `, solveBottomToTop(prices));
 };
 
-console.log(maxProfit([1, 2, 3, 0, 2]));
+maxProfit([1, 2, 3, 0, 2]);
+maxProfit([7, 1, 5, 3, 6, 4]);
